@@ -1,0 +1,102 @@
+﻿@model BookAppointmentViewModel
+@{
+    ViewData["Title"] = "Rezerwacja wizyty";
+    var slot = ViewBag.Slot as AppointmentSlot;
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card border-primary mb-4 shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-calendar-event"></i> Szczegóły wizyty</h5>
+                </div>
+                <div class="card-body bg-light">
+                    <div class="row text-center">
+                        <div class="col-md-6 border-end">
+                            <small class="text-muted">Lekarz</small>
+                            <p class="fw-bold fs-5 mb-0">@slot?.Doctor.FullName</p>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">Termin</small>
+                            <p class="fw-bold fs-5 mb-0 text-success">
+                                @slot?.StartTime.ToString("dddd, dd.MM.yyyy")
+                                <span class="text-muted fs-6">godz.</span>
+                                @slot?.StartTime.ToString("HH:mm")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="BookAppointment" asp-route-slotId="@Model.Id" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="DoctorId" />
+
+                <div class="card shadow border-0">
+                    <div class="card-header bg-white pb-0 border-bottom-0">
+                        <h4 class="card-title text-primary">Twoje Dane</h4>
+                        <p class="text-muted small">Wypełnij formularz, aby potwierdzić rezerwację.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="PatientFirstName" class="form-label fw-bold">Imię</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input asp-for="PatientFirstName" class="form-control" placeholder="np. Jan" />
+                                </div>
+                                <span asp-validation-for="PatientFirstName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PatientLastName" class="form-label fw-bold">Nazwisko</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                    <input asp-for="PatientLastName" class="form-control" placeholder="np. Kowalski" />
+                                </div>
+                                <span asp-validation-for="PatientLastName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PatientEmail" class="form-label fw-bold">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input asp-for="PatientEmail" type="email" class="form-control" placeholder="jan@przyklad.pl" />
+                                </div>
+                                <span asp-validation-for="PatientEmail" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PatientPhone" class="form-label fw-bold">Telefon</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                    <input asp-for="PatientPhone" class="form-control" placeholder="np. 123 456 789" />
+                                </div>
+                                <span asp-validation-for="PatientPhone" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="PatientAddress" class="form-label fw-bold">Adres (opcjonalnie)</label>
+                                <textarea asp-for="PatientAddress" class="form-control" rows="2"></textarea>
+                                <span asp-validation-for="PatientAddress" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white text-end pt-3 pb-3">
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary me-2">Anuluj</a>
+                        <button type="submit" class="btn btn-success btn-lg px-5 shadow-sm">
+                            <i class="bi bi-check-circle"></i> Potwierdź rezerwację
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

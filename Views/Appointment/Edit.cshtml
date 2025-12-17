@@ -1,0 +1,49 @@
+@model DoctorAppointmentSystem.Models.AppointmentSlot
+
+@{
+    ViewData["Title"] = "Edytuj wizytę";
+}
+
+<h2>Edytuj wizytę</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-3">
+                <label asp-for="PatientFirstName" class="control-label">Imię</label>
+                <input asp-for="PatientFirstName" class="form-control" />
+                <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PatientLastName" class="control-label">Nazwisko</label>
+                <input asp-for="PatientLastName" class="form-control" />
+                <span asp-validation-for="PatientLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PatientEmail" class="control-label">Email</label>
+                <input asp-for="PatientEmail" class="form-control" />
+                <span asp-validation-for="PatientEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PatientPhone" class="control-label">Telefon</label>
+                <input asp-for="PatientPhone" class="form-control" />
+                <span asp-validation-for="PatientPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PatientAddress" class="control-label">Adres</label>
+                <input asp-for="PatientAddress" class="form-control" />
+                <span asp-validation-for="PatientAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-action="MyAppointments" class="btn btn-secondary">Powrót</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

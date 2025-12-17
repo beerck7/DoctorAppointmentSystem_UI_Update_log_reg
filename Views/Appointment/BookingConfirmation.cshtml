@@ -1,0 +1,88 @@
+﻿@model AppointmentSlot
+@{
+    ViewData["Title"] = "Potwierdzenie rezerwacji";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle shadow mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-check-lg display-4"></i>
+                </div>
+                <h2 class="fw-bold text-success">Rezerwacja potwierdzona!</h2>
+                <p class="text-muted">Dziękujemy za umówienie wizyty. Poniżej znajdują się szczegóły.</p>
+            </div>
+
+            <div class="card shadow border-0 overflow-hidden">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h5 class="mb-0 text-uppercase letter-spacing-1">Bilet Wizyty</h5>
+                </div>
+                <div class="card-body p-4 bg-light">
+
+                    <div class="row text-center mb-4">
+                        <div class="col-6 border-end">
+                            <small class="text-muted text-uppercase">Data</small>
+                            <h4 class="fw-bold text-dark">@Model.StartTime.ToString("dd.MM.yyyy")</h4>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted text-uppercase">Godzina</small>
+                            <h4 class="fw-bold text-primary">@Model.StartTime.ToString("HH:mm")</h4>
+                        </div>
+                    </div>
+
+                    <hr class="border-secondary opacity-25" />
+
+                    <div class="vstack gap-3 mt-3">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-box bg-white text-primary rounded p-2 me-3 shadow-sm">
+                                <i class="bi bi-person-badge-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Lekarz</small>
+                                <strong>@Model.Doctor.FullName</strong> <span class="text-muted">(@Model.Doctor.Specialization)</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <div class="icon-box bg-white text-primary rounded p-2 me-3 shadow-sm">
+                                <i class="bi bi-person-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Pacjent</small>
+                                <strong>@Model.PatientFullName</strong>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <div class="icon-box bg-white text-primary rounded p-2 me-3 shadow-sm">
+                                <i class="bi bi-geo-alt-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Adres przychodni</small>
+                                <strong>ul. Zdrowa 15, Gabinet 4B</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white p-3 text-center">
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg shadow-sm">
+                            <i class="bi bi-house-door"></i> Wróć do strony głównej
+                        </a>
+                        <a asp-controller="Home" asp-action="Doctors" asp-route-specialization="@Model.Doctor.Specialization" class="btn btn-outline-secondary">
+                            Umów kolejną wizytę
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3 text-muted small">
+                <i class="bi bi-envelope"></i> Potwierdzenie zostało wysłane na adres: <strong>@Model.PatientEmail</strong>
+            </div>
+
+        </div>
+    </div>
+</div>

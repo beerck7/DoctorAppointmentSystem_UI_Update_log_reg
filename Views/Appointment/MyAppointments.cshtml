@@ -1,0 +1,42 @@
+@model IEnumerable<DoctorAppointmentSystem.Models.AppointmentSlot>
+
+@{
+    ViewData["Title"] = "Moje Wizyty";
+}
+
+<h2>Moje Wizyty</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <p>Nie masz żadnych zarezerwowanych wizyt.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Lekarz</th>
+                <th>Specjalizacja</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FormattedDate</td>
+                    <td>@item.Doctor.FullName</td>
+                    <td>@item.Doctor.Specialization</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edytuj</a>
+                        <form asp-action="Cancel" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Czy na pewno chcesz odwołać wizytę?');" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Odwołaj</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

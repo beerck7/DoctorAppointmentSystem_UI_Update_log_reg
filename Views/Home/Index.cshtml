@@ -1,0 +1,52 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "System Rezerwacji Wizyt";
+}
+
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center" style="background: linear-gradient(135deg, #f5f77a 0%, #c3cfe2 100%);">
+    <div class="container-fluid py-5">
+        <h1 class="display-4 fw-bold text-primary"><i class="bi bi-hospital"></i> bert-przychodnia</h1>
+        <p class="col-md-8 fs-4 mx-auto">Rezerwacja wizyt lekarskich online.</p>
+        <p class="text-muted">Wybierz specjalizację aby rozpocząć.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+        @foreach (var spec in Model)
+        {
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 hover-effect">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3 text-primary">
+                            <i class="bi bi-heart-pulse-fill display-4"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">@spec</h5>
+                        <p class="card-text text-muted">Umów wizytę u specjalisty</p>
+                        <a asp-action="Doctors" asp-route-specialization="@spec" class="btn btn-outline-primary stretched-link">
+                            Zobacz lekarzy <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-primary d-flex align-items-center shadow-sm" role="alert">
+                <i class="bi bi-info-circle-fill flex-shrink-0 me-3 fs-3"></i>
+                <div>
+                    <h4 class="alert-heading mb-1">Nie wiesz jakiego lekarza wybrać?</h4>
+                    <p class="mb-0">Przejrzyj pełną listę naszych specjalistów i znajdź odpowiednią pomoc.</p>
+                    <a asp-action="Doctors" class="btn btn-primary mt-2 btn-sm">Przeglądaj wszystkich <i class="bi bi-people-fill"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect { transition: transform 0.2s; }
+    .hover-effect:hover { transform: translateY(-5px); }
+</style>

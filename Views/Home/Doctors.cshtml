@@ -1,0 +1,62 @@
+﻿@model List<Doctor>
+@{
+    ViewData["Title"] = "Nasi Lekarze";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>
+            <i class="bi bi-person-badge text-primary"></i>
+            Lekarze @(ViewBag.Specialization != null ? $"– {ViewBag.Specialization}" : "")
+        </h2>
+    </div>
+
+    <div class="card mb-4 shadow-sm bg-light border-0">
+        <div class="card-body">
+            <form asp-action="Doctors" method="get" class="row g-2 align-items-center">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" name="search" class="form-control border-start-0" placeholder="Szukaj lekarza po nazwisku lub specjalizacji..." value="@ViewBag.Search">
+                    </div>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button class="btn btn-primary">Szukaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var doc in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px; font-size: 24px;">
+                                @doc.FullName.Substring(0, 1)
+                            </div>
+                            <div>
+                                <h5 class="card-title fw-bold text-dark">@doc.FullName</h5>
+                                <span class="badge bg-info text-dark mb-2">@doc.Specialization</span>
+                            </div>
+                        </div>
+                        <p class="card-text mt-3 text-muted">@doc.Description</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 text-end pb-3">
+                        <a asp-action="AvailableAppointments" asp-route-doctorId="@doc.Id" class="btn btn-success px-4 rounded-pill">
+                            <i class="bi bi-calendar-check"></i> Sprawdź terminy
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Powrót do strony głównej
+        </a>
+    </div>
+</div>
